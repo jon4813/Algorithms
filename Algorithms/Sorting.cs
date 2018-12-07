@@ -17,9 +17,9 @@ namespace Algorithms
             {
                 for (int j = i; j > 0 && mas[j] < mas[j - 1]; j--)
                 {
-                    Swap(mas, j, j - 1);
+                    Services.Swap(mas, j, j - 1);
                     Console.Write($"{i}: ");
-                    PrintArray(mas);
+                    Services.PrintArray(mas);
                 }
             }
         }
@@ -32,9 +32,9 @@ namespace Algorithms
                 {
                     if (mas[j] > mas[j + 1])
                     {
-                        Swap(mas, j, j + 1);
+                        Services.Swap(mas, j, j + 1);
                         Console.Write($"{i}: ");
-                        PrintArray(mas);
+                        Services.PrintArray(mas);
                     }
                 }
             }
@@ -54,7 +54,7 @@ namespace Algorithms
                     }
                 }
 
-                Swap(mas, i, k);
+                Services.Swap(mas, i, k);
             }
         }
 
@@ -138,11 +138,11 @@ namespace Algorithms
         {
             MakeHeap(mas);
             Console.Write("Heap: ");
-            PrintArray(mas);
+            Services.PrintArray(mas);
 
             for (int i = mas.Length - 1; i >= 0; i--)
             {
-                Swap(mas, 0, i);
+                Services.Swap(mas, 0, i);
                 var index = 0;
                 var count = i;
                 while (true)
@@ -158,14 +158,14 @@ namespace Algorithms
 
                     var swapChild = mas[child1] > mas[child2] ? child1 : child2;
 
-                    Swap(mas, index, swapChild);
+                    Services.Swap(mas, index, swapChild);
 
                     index = swapChild;
                 }
             }
         }
 
-        private static void MakeHeap(int[]mas)
+        public static void MakeHeap(int[]mas)
         {
             for (int i = 0; i < mas.Length; i++)
             {
@@ -176,7 +176,7 @@ namespace Algorithms
                     if (mas[index] <= mas[parent])
                         break;
 
-                    Swap(mas, parent, index);
+                    Services.Swap(mas, parent, index);
                     index = parent;
                 }
             }
@@ -334,7 +334,7 @@ namespace Algorithms
                     end--;
                 }
 
-                Swap(mas, start, end);
+                Services.Swap(mas, start, end);
                 if (mas[start] < pivot)
                     start++;
                 if (mas[end] > pivot)
@@ -345,58 +345,7 @@ namespace Algorithms
         }
 
         #region Infrastructure
-
-        public static void Shuffle(int[] mas)
-        {
-            var random = new Random(1);
-            for (int i = 0; i < mas.Length; i++)
-            {
-                var tmpInd = random.Next(mas.Length);
-                Swap(mas, i, tmpInd);
-            }
-        }
-
-        static void Swap(int[] mas, int i, int j)
-        {
-            var tmp = mas[i];
-            mas[i] = mas[j];
-            mas[j] = tmp;
-        }
-
-        public static int[] PrepareArray(int length)
-        {
-            int[] mas = new int[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                mas[i] = i;
-            }
-
-            return mas;
-        }
-
-        public static int[] PrepareRandomArray(int length, int max)
-        {
-            int[] mas = new int[length];
-            var random = new Random();
-
-            for (int i = 0; i < length; i++)
-            {
-                mas[i] = random.Next(max);
-            }
-
-            return mas;
-        }
-
-        public static void PrintArray(int[] mas)
-        {
-            for (int i = 0; i < mas.Length; i++)
-            {
-                Console.Write($"{mas[i]},");
-            }
-
-            Console.WriteLine();
-        }
+        
 
         #endregion
     }

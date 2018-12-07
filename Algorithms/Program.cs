@@ -8,19 +8,62 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            BlockSortTest();
+            AddTreeNodeTest();
             Console.ReadLine();
         }
 
+
+        #region Trees
+
+        static void AddTreeNodeTest()
+        {
+            TreeNode<string> root = new TreeNode<string> {Value = "C"};
+            root.AddNode("B");
+            root.AddNode("A");
+            root.AddNode("D");
+            root.AddNode("E");
+
+            Trees.TraverseInorder(root);
+        }
+
+        static void TraversePreorderTest()
+        {
+            TreeNode<string> root = TreeServices.PrepareTree();
+            Console.WriteLine("Прямой");
+            Trees.TraversePreorder(root);
+            Console.WriteLine();
+            Console.WriteLine("Симметричный");
+            Trees.TraverseInorder(root);
+            Console.WriteLine();
+            Console.WriteLine("Обратный");
+            Trees.TraversePostorder(root);
+
+            Console.WriteLine();
+            Console.WriteLine("Обход в ширину");
+            Trees.TraverseDepthFirst(root);
+        }
+#endregion
+
+        #region Search
+        static void BinarySearchTest()
+        {
+            Search.BinarySearchRecursive(Services.PrepareArray(50), 45);
+            Search.InterpollarSearch(Services.PrepareArray(50),45);
+            Search.BinarySearch(Services.PrepareArray(50), 45);
+        }
+
+        #endregion
+
+        #region Sort
         static void BlockSortTest()
         {
-            var mas = Sorting.PrepareArray(100);
-            Sorting.Shuffle(mas);
+            var mas = Services.PrepareArray(100);
+            Services.Shuffle(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
             Sorting.BlockSort(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
         }
 
         static void SelectionSortListTest()
@@ -34,48 +77,62 @@ namespace Algorithms
 
         static void CountSortTest()
         {
-            var mas = Sorting.PrepareRandomArray(20, 100);
-            Sorting.Shuffle(mas);
+            var mas = Services.PrepareRandomArray(20, 100);
+            Services.Shuffle(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
             Sorting.CountSort(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
         }
 
         static void PyramidSortTest()
         {
-            var mas = Sorting.PrepareArray(10);
-            Sorting.Shuffle(mas);
+            var mas = Services.PrepareArray(10);
+            Services.Shuffle(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
             Sorting.PyramidSort(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
         }
 
         static void MergeSortTest()
         {
-            var mas = Sorting.PrepareArray(10);
-            Sorting.Shuffle(mas);
+            var mas = Services.PrepareArray(10);
+            Services.Shuffle(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
             Sorting.MergeSort(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
         }
 
         static void QSortTest()
         {
-            var mas = Sorting.PrepareArray(10);
-            Sorting.Shuffle(mas);
+            var mas = Services.PrepareArray(10);
+            Services.Shuffle(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
             Sorting.QSort(mas);
 
-            Sorting.PrintArray(mas);
+            Services.PrintArray(mas);
         }
 
+        static void SortingTest()
+        {
+            var length = 10;
+            var mas = Services.PrepareArray(length);
+            Services.Shuffle(mas);
+            Services.PrintArray(mas);
+            Console.WriteLine("SelectionSort");
+            Sorting.SelectionSort(mas);
+            Services.PrintArray(mas);
+        }
+
+        #endregion
+
+        #region Lists
         static void RabbitTurtle()
         {
             SingleBoundList list = new SingleBoundList();
@@ -120,17 +177,7 @@ namespace Algorithms
 
         }
 
-        static void SortingTest()
-        {
-            var length = 10;
-            var mas = Sorting.PrepareArray(length);
-            Sorting.Shuffle(mas);
-            Sorting.PrintArray(mas);
-            Console.WriteLine("SelectionSort");
-            Sorting.SelectionSort(mas);
-            Sorting.PrintArray(mas);
-        }
-
+#endregion
 
     }
 }
