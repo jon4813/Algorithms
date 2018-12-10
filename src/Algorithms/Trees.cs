@@ -11,7 +11,7 @@ namespace Algorithms
         /// Прямой порядок
         /// </summary>
         /// <param name="root"></param>
-        public static void TraversePreorder<T>(TreeNode<T> root) where  T :IComparable<T>
+        public static void TraversePreorder<T>(TreeNode<T> root) where T : IComparable<T>
         {
             Console.Write($"{root.Value} ->");
             if (root.LeftChild != null) TraversePreorder(root.LeftChild);
@@ -23,7 +23,7 @@ namespace Algorithms
         /// </summary>
         /// <param name="root"></param>
         public static void TraverseInorder<T>(TreeNode<T> root) where T : IComparable<T>
-        {            
+        {
             if (root.LeftChild != null) TraverseInorder(root.LeftChild);
             Console.Write($"{root.Value} ->");
             if (root.RightChild != null) TraverseInorder(root.RightChild);
@@ -35,7 +35,7 @@ namespace Algorithms
         /// <param name="root"></param>
         public static void TraversePostorder<T>(TreeNode<T> root) where T : IComparable<T>
         {
-            if (root.LeftChild != null) TraversePostorder(root.LeftChild);            
+            if (root.LeftChild != null) TraversePostorder(root.LeftChild);
             if (root.RightChild != null) TraversePostorder(root.RightChild);
             Console.Write($"{root.Value} ->");
         }
@@ -63,7 +63,7 @@ namespace Algorithms
     {
         public static TreeNode<string> PrepareTree()
         {
-            TreeNode<string> nodeD = new TreeNode<string> {Value = "D"};
+            TreeNode<string> nodeD = new TreeNode<string> { Value = "D" };
             TreeNode<string> nodeB = new TreeNode<string> { Value = "B" };
             TreeNode<string> nodeE = new TreeNode<string> { Value = "E" };
             TreeNode<string> nodeA = new TreeNode<string> { Value = "A" };
@@ -95,29 +95,30 @@ namespace Algorithms
             // терминальный узел (лист)
             if (current.LeftChild == null && current.RightChild == null)
             {
-                DeleteNode(previous, null);
+                DeleteNode(previous, current, null);
+                return;
             }
-            
+
             //если у текущего узла только один потомок
             if (current.RightChild == null && current.LeftChild != null)
             {
-                DeleteNode(previous, current.LeftChild);
+                DeleteNode(previous, current, current.LeftChild);
                 return;
             }
             if (current.RightChild != null && current.LeftChild == null)
             {
-                DeleteNode(previous, current.RightChild);
-
+                DeleteNode(previous, current, current.RightChild);
                 return;
             }
 
             if (current.LeftChild.RightChild == null)
             {
-                DeleteNode(previous, current.LeftChild);
+                current.LeftChild.RightChild = current.RightChild;
+                DeleteNode(previous, current, current.LeftChild);
                 return;
             }
 
-            var (mostRightPrev, mostRight) = FindMostRight(current, previous);
+            var (mostRightPrev, mostRight) = FindMostRight(current.LeftChild, previous);
 
             if (mostRight.LeftChild == null)
             {
@@ -134,24 +135,15 @@ namespace Algorithms
             }
             else
             {
-                if (previous.LeftChild == mostRight)
+                mostRightPrev.RightChild = mostRight.LeftChild;
+                if (previous.LeftChild == current)
                     previous.LeftChild = mostRight;
                 else
                     previous.RightChild = mostRight;
 
-                var tmp = mostRight.LeftChild;
-                
-                mostRight.RightChild = mostRight.LeftChild;
+                mostRight.LeftChild = current.LeftChild;
+                mostRight.RightChild = current.RightChild;
             }
-
-
-
-
-            //if (forDelete.RightChild == null)
-
-            //find node for sobstitution
-
-
         }
 
         private static (TreeNode<T> previous, TreeNode<T> current) FindMostRight(TreeNode<T> current, TreeNode<T> previous)
@@ -162,12 +154,12 @@ namespace Algorithms
             return FindMostRight(current.RightChild, current);
         }
 
-        private static void DeleteNode(TreeNode<T> previous, TreeNode<T> current)
+        private static void DeleteNode(TreeNode<T> previous, TreeNode<T> current, TreeNode<T> forReplace)
         {
             if (previous.LeftChild == current)
-                previous.LeftChild = current;
+                previous.LeftChild = forReplace;
             else
-                previous.RightChild = current;
+                previous.RightChild = forReplace;
         }
 
         //public static (TreeNode<T> previous, TreeNode<T> current)? FindMostRight(T key, TreeNode<T> root, TreeNode<T> previous)
@@ -181,6 +173,8 @@ namespace Algorithms
 
         public static (TreeNode<T> previous, TreeNode<T> current) FindPrevious(T key, TreeNode<T> root, TreeNode<T> previous)
         {
+            if (root == null)
+                return (previous: null, current: null);
             if (key.CompareTo(root.Value) == 0) return (previous, root);
 
             if (key.CompareTo(root.Value) < 0)
@@ -206,13 +200,13 @@ namespace Algorithms
         {
             if (Value.CompareTo(value) > 0)
             {
-                if (LeftChild == null) LeftChild = new TreeNode<T> {Value = value};
+                if (LeftChild == null) LeftChild = new TreeNode<T> { Value = value };
                 else
                     LeftChild.AddNode(value);
             }
             else
             {
-                if (RightChild == null) RightChild = new TreeNode<T> {Value = value};
+                if (RightChild == null) RightChild = new TreeNode<T> { Value = value };
                 else RightChild.AddNode(value);
             }
         }

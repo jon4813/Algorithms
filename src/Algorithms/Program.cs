@@ -8,17 +8,71 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            GameAnimals game = new GameAnimals();
-            game.GameStart();
+            TestComplexDelete();
             Console.ReadLine();
         }
 
-
         #region Trees
+
+        static void TestPlainDelete()
+        {            
+            TreeNode<int> onetmp = new TreeNode<int> { Value = 9 };             //                18
+            TreeNode<int> twoTmp = new TreeNode<int> { Value = 12 };            //               /  \
+            twoTmp.LeftChild = onetmp;                                          //             15    24
+            onetmp = new TreeNode<int> { Value = 6 };                           //             /    /  \
+            onetmp.RightChild = twoTmp;                                         //           |6|   27  29 
+            onetmp.LeftChild = new TreeNode<int> { Value = 3 };                 //           / \ 
+            onetmp.LeftChild.LeftChild = new TreeNode<int> { Value = 0 };       //          3   12
+            twoTmp = new TreeNode<int> { Value = 15 };                          //         /    /
+            twoTmp.LeftChild = onetmp;                                          //        0    9
+            onetmp = new TreeNode<int> { Value = 18 };
+            onetmp.LeftChild = twoTmp;
+            twoTmp = new TreeNode<int> { Value = 24 };
+            twoTmp.LeftChild = new TreeNode<int> { Value = 21 };
+            twoTmp.RightChild = new TreeNode<int> { Value = 27 };
+            onetmp.RightChild = twoTmp;
+
+            Trees.TraverseInorder(onetmp);
+            TreeNode<int>.DeleteNode(6, onetmp);
+            System.Console.WriteLine();
+            Trees.TraverseInorder(onetmp);
+        }
+
+        static void TestComplexDelete()
+        {            
+            TreeNode<int> onetmp = new TreeNode<int> { Value = 9 };             //                18
+            TreeNode<int> twoTmp = new TreeNode<int> { Value = 12 };            //               /  \
+            twoTmp.LeftChild = onetmp;                                          //             15    24
+            onetmp = new TreeNode<int> { Value = 6 };                           //             /    /  \
+            onetmp.RightChild = twoTmp;                                         //           |6|   21  27 
+            onetmp.LeftChild = new TreeNode<int> { Value = 3 };                 //           / \ 
+            onetmp.LeftChild.RightChild = new TreeNode<int> {Value = 5};        //          3   12
+            onetmp.LeftChild.RightChild.LeftChild = new TreeNode<int> {Value=4};//         / |  /
+            onetmp.LeftChild.LeftChild = new TreeNode<int> { Value = 0 };       //        0  5   9
+            twoTmp = new TreeNode<int> { Value = 15 };                          //          /
+            twoTmp.LeftChild = onetmp;                                          //         4
+            onetmp = new TreeNode<int> { Value = 18 };                          
+            onetmp.LeftChild = twoTmp;                                          
+            twoTmp = new TreeNode<int> { Value = 24 };
+            twoTmp.LeftChild = new TreeNode<int> { Value = 21 };
+            twoTmp.RightChild = new TreeNode<int> { Value = 27 };
+            onetmp.RightChild = twoTmp;
+
+            Trees.TraverseInorder(onetmp);
+            TreeNode<int>.DeleteNode(6, onetmp);
+            System.Console.WriteLine();
+            Trees.TraverseInorder(onetmp);
+        }
+
+        static void TestGame()
+        {
+            GameAnimals game = new GameAnimals();
+            game.GameStart();
+        }
 
         static void AddTreeNodeTest()
         {
-            TreeNode<string> root = new TreeNode<string> {Value = "C"};
+            TreeNode<string> root = new TreeNode<string> { Value = "C" };
             root.AddNode("B");
             root.AddNode("A");
             root.AddNode("D");
@@ -43,13 +97,13 @@ namespace Algorithms
             Console.WriteLine("Обход в ширину");
             Trees.TraverseDepthFirst(root);
         }
-#endregion
+        #endregion
 
         #region Search
         static void BinarySearchTest()
         {
             Search.BinarySearchRecursive(Services.PrepareArray(50), 45);
-            Search.InterpollarSearch(Services.PrepareArray(50),45);
+            Search.InterpollarSearch(Services.PrepareArray(50), 45);
             Search.BinarySearch(Services.PrepareArray(50), 45);
         }
 
@@ -178,7 +232,7 @@ namespace Algorithms
 
         }
 
-#endregion
+        #endregion
 
     }
 }
