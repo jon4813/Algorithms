@@ -9,7 +9,7 @@
              "name": ".NET Core Launch (console)",
              "type": "coreclr",
              "request": "launch",
-             "preLaunchTask": "build",
+             "preLaunchTask": "build Debug",
              // If you have changed target frameworks, make sure to update the program path.
              "program": "${workspaceFolder}/src/Algorithms/bin/Debug/netcoreapp2.1/Algorithms.dll",
              "args": [],
