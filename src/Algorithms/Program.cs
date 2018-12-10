@@ -8,7 +8,8 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            AddTreeNodeTest();
+            GameAnimals game = new GameAnimals();
+            game.GameStart();
             Console.ReadLine();
         }
 
