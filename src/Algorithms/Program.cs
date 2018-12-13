@@ -8,9 +8,20 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            TestComplexDelete();
+            TestExpression();
             Console.ReadLine();
         }
+
+        #region Expressions
+
+        static void TestExpression()
+        {
+            ExpressionTrees exp = new ExpressionTrees();
+
+            var expRaw = Console.ReadLine();
+            Console.WriteLine(exp.EvaluateExp(expRaw));
+        }
+#endregion
 
         #region Trees
 
