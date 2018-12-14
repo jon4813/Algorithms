@@ -7,8 +7,9 @@ using System.Text;
 namespace Algorithms
 {
     public class ExpressionTrees
-    {
-        public bool IsProperlyNested(string expresstion)
+    {        
+
+        private bool IsProperlyNested(string expresstion)
         {
             int parenthesesCounter = 0;
             for (int i = 0; i < expresstion.Length; i++)
@@ -32,7 +33,7 @@ namespace Algorithms
             return Evaluate(exp, 0);
         }
 
-        public float Evaluate(string exp, int index)
+        private float Evaluate(string exp, int index)
         {
             if (IsOutOfBounds(index, exp))
                 return 0;
